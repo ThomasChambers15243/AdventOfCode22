@@ -37,10 +37,15 @@ def DayOne(input):
         return (stack[-1] + stack[-2] + stack[-3])
 def DayTwo(input):
     with open(input) as daysInput:
+
         # ROCK PAPER SCISSORS
         opp = ['A','B','C']
-        player = ['X','Y','Z']
-        points = { "player" : 6, "opp" : 0, "draw" : 3}
+        points = { "win" : 6, "loose" : 0, "draw" : 3}
+
+        # Points for the hands that would be played
+        lossingHandPoints = {"A" : 3, "B" : 1, "C" : 2}
+        winningHandPoints = {"A" : 2, "B" : 3, "C" : 1}
+
         rounds = []
         score = 0
 
@@ -49,43 +54,23 @@ def DayTwo(input):
             rounds.append(line[:-1])
 
         # Calculate score for each round and add it to the running total for the player
+        # X == Loose
+        # Y == Draw
+        # Z == Win
+
         for round in rounds:
-            oppTurn = opp.index(round[0])
-            playerTurn = player.index(round[2])
-            total = oppTurn + playerTurn
+            oppTurn = round[0]
+            playerTurn = round[2]
 
-            # Calculate the result
-            # ROCK 1
-            # PAPER 2
-            # SCISSORS 3
-            #
-            #
-            # 0 + 1 = 1
-            # 0 + 2 = 2
-            # 1 + 2 = 3
-
-            if total == 2*oppTurn:
-                result = 'draw'
-            elif total == 1:
-                if oppTurn == 0:
-                    result = 'player'
-                else:
-                    result = 'opp'
-            elif total == 2:
-                if oppTurn == 0:
-                    result = 'opp'
-                else:
-                    result = 'player'
+            # Loose
+            if playerTurn == 'X':
+                score += lossingHandPoints[oppTurn]
+            # Draw, plus one so that index represents value of hand played
+            elif playerTurn == 'Y':
+                score += opp.index(oppTurn) + points["draw"] + 1
+            # Win
             else:
-                if oppTurn == 1:
-                    result = 'player'
-                else:
-                    result = 'opp'
-
-            if result != "opp":
-                score += points[result]
-            score += playerTurn+1
-
+                score += winningHandPoints[oppTurn] + points["win"]
         return(score)
 
 if __name__ == '__main__':
