@@ -72,8 +72,20 @@ def DayTwo(input):
             else:
                 score += winningHandPoints[oppTurn] + points["win"]
         return(score)
+def DayThree(input):
+    # GetLines into their rucksack
+
+    # Split each rucksack into its compartmeants
+
+    # compare compartmeants for common value
+
+    # Find and total up the priority of each common item
+
+    # Return total
+    return 0
 
 if __name__ == '__main__':
-    #print(DayOne("dayOneInput.txt"))
-    print(DayTwo("dayTwoInput.txt"))
+    # print(DayOne("dayOneInput.txt"))
+    # print(DayTwo("dayTwoInput.txt"))
+    print(DayThree("dayThreeInput.txt"))
 
