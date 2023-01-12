@@ -73,19 +73,42 @@ def DayTwo(input):
                 score += winningHandPoints[oppTurn] + points["win"]
         return(score)
 def DayThree(input):
-    # GetLines into their rucksack
+    with open(input) as fInput:
+        # Holds all commons in rucksack
+        totalCommons = []
 
-    # Split each rucksack into its compartmeants
+        # GetLines into their rucksack
+        for rucksack in fInput:
+            # Split each rucksack into its compartmeants
+            firstHalf = rucksack[: int(((len(rucksack))/2))]
+            secondHalf = rucksack[len(firstHalf): ]
 
-    # compare compartmeants for common value
+            # Holds common types between the two halfs
+            compartmeantCommons = []
 
-    # Find and total up the priority of each common item
+            for i in firstHalf:
+                for j in secondHalf:
+                    if i == j and i not in compartmeantCommons:
+                        compartmeantCommons.append(i)
 
-    # Return total
-    return 0
+            # Allows for more than one common item
+            for i in compartmeantCommons:
+                totalCommons.append(i)
+
+        # Find and total up the priority of each common item
+        totalCount = 0
+        for char in totalCommons:
+            # Lower Case, else Upper
+            # Subtract a part so that their natural ascii numbers make up their values
+            if ord(char) > 90:
+                totalCount+= ord(char) - 96
+            else:
+                totalCount+= ord(char) - 38
+    # Return Total
+    return totalCount
 
 if __name__ == '__main__':
-    # print(DayOne("dayOneInput.txt"))
-    # print(DayTwo("dayTwoInput.txt"))
-    print(DayThree("dayThreeInput.txt"))
+    # print(DayOne("inputs/dayOneInput.txt"))
+    # print(DayTwo("inputs/dayTwoInput.txt"))
+    print(DayThree("inputs/dayThreeInput.txt"))
 
